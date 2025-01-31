@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    active: test
+  application:
+   name: science-book
+
+  sql:
+    init:
+      mode: always
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+server:
+  port: 9090
+
+
