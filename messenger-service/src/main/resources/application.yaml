@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    active: test
+  application:
+   name: messenger-service
+
+  sql:
+    init:
+      mode: always
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+server:
+  port: 9091
+
+

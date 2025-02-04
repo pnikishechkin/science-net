@@ -1,0 +1,87 @@
+services:
+  main-service:
+    build: main-service
+    container_name: main-service
+    ports:
+      - "9090:9090"
+    depends_on:
+      - main-db
+      #- articles-db
+
+  messenger-service:
+    build: messenger-service
+    container_name: messenger-service
+    ports:
+      - "9091:9091"
+    depends_on:
+      - messenger-db
+
+  statistics-service:
+    build: statistics-service
+    container_name: statistics-service
+    ports:
+      - "9092:9092"
+    depends_on:
+      - statistics-db
+
+  main-db:
+    image: postgres:16.1
+    container_name: postgres-main-db
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=main
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+
+  messenger-db:
+    image: postgres:16.1
+    container_name: postgres-messenger-db
+    ports:
+      - "5443:5442"
+    environment:
+      - POSTGRES_DB=messenger
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+
+  statistics-db:
+    image: postgres:16.1
+    container_name: postgres-statistics-db
+    ports:
+      - "5453:5452"
+    environment:
+      - POSTGRES_DB=main
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+
+  articles-db:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  articles-db-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+      ME_CONFIG_BASICAUTH: false
+
+#  :
+#    image: mongo:5.0.31
+#    restart: always
+#    environment:
+#      - MONGO_INITDB_ROOT_USERNAME=root
+#      - MONGO_INITDB_ROOT_PASSWORD=example
+
+# https://habr.com/ru/articles/823936/
+#  cache-db:
+#    image: redis:7.4.2
+#    container_name: redis-cache-db
+#    ports:
+#      - "5435:5434"
