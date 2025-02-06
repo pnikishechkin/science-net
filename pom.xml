@@ -19,8 +19,6 @@
 
     <modules>
         <module>main-service</module>
-        <module>messenger-service</module>
-        <module>statistics-service</module>
     </modules>
 
     <url/>
