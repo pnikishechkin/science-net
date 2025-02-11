@@ -33,6 +33,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -47,6 +48,8 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -85,8 +88,6 @@
         </dependency>
 
 
-
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -106,7 +107,7 @@
 
 
     </dependencies>
-
+<!--
     <build>
         <plugins>
             <plugin>
@@ -135,5 +136,16 @@
             </plugin>
         </plugins>
     </build>
+-->
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
 
 </project>

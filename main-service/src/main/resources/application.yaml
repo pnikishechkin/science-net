@@ -1,9 +1,8 @@
+server:
+  port: 9090
 spring:
   profiles:
     active: test
-  application:
-   name: main-service
-
   sql:
     init:
       mode: always
@@ -11,7 +10,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
-server:
-  port: 9090
+    hibernate:
+      ddl-auto: none
 
 

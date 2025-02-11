@@ -14,12 +14,12 @@ import ru.nikishechkin.sciencebook.user.dto.UserCreateDto;
 @Validated
 public class UserController {
 
-//    private final UserServiceImpl userService;
-//
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public User create(@RequestBody @Validated UserCreateDto userDto) {
-//        return userService.create(userDto);
-//    }
+    private final UserServiceImpl userService;
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public User create(@RequestBody @Validated UserCreateDto userDto) {
+        return userService.create(userDto);
+    }
 
 }

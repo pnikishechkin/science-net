@@ -15,7 +15,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    //private final ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @Override
     public User create(UserCreateDto userCreateDto) {
@@ -25,12 +25,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Long userId) {
-        userRepository.deleteById(userId);
+        //userRepository.deleteById(userId);
     }
 
     @Override
     public Optional<User> getById(Long userId) {
-        return userRepository.findById(userId);
+        return Optional.ofNullable(null);// userRepository.findById(userId);
     }
 
     @Override
