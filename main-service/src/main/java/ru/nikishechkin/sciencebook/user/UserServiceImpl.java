@@ -25,12 +25,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Long userId) {
-        //userRepository.deleteById(userId);
+        userRepository.deleteById(userId);
     }
 
     @Override
     public Optional<User> getById(Long userId) {
-        return Optional.ofNullable(null);// userRepository.findById(userId);
+        return userRepository.findById(userId);
     }
 
     @Override
@@ -42,9 +42,7 @@ public class UserServiceImpl implements UserService {
     // https://www.baeldung.com/entity-to-and-from-dto-for-a-java-spring-application
     // https://habr.com/ru/articles/438808/
     private User convertToEntity(UserCreateDto userCreateDto) {
-//        User user = modelMapper.map(userCreateDto, User.class);
-//        return user;
-
-        return null;
+        User user = modelMapper.map(userCreateDto, User.class);
+        return user;
     }
 }
