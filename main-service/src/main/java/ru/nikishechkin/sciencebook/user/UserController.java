@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.nikishechkin.sciencebook.user.dto.UserCreateDto;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/admin/users")
 @RequiredArgsConstructor
 @Slf4j
 @Validated
