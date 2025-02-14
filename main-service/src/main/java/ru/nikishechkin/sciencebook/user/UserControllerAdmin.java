@@ -12,7 +12,7 @@ import ru.nikishechkin.sciencebook.user.dto.UserCreateDto;
 @RequiredArgsConstructor
 @Slf4j
 @Validated
-public class UserController {
+public class UserControllerAdmin {
 
     private final UserServiceImpl userService;
 
