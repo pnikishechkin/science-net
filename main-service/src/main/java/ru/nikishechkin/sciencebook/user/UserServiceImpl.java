@@ -18,13 +18,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
-    //private final UserMapper userMapper;
+    private final UserMapper userMapper;
 
     @Override
     public User create(UserCreateDto userCreateDto) {
-        // User user = userMapper.userCreateDtoToUser(userCreateDto);
+        User user = userMapper.userCreateDtoToUser(userCreateDto);
         // TODO organization проверка на валидность
-        User user = null;
         userRepository.save(user);
         return user;
     }
