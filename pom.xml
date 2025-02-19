@@ -10,12 +10,12 @@
     </parent>
 
     <groupId>ru.nikishechkin</groupId>
-    <artifactId>science-book</artifactId>
+    <artifactId>science-net</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>science-book</name>
-    <description>science-book</description>
+    <name>science-net</name>
+    <description>science-net</description>
 
     <modules>
         <module>main-service</module>

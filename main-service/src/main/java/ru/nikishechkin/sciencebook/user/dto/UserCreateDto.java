@@ -1,11 +1,21 @@
 package ru.nikishechkin.sciencebook.user.dto;
 
+import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import ru.nikishechkin.sciencebook.organization.Organization;
 
 @Data
 public class UserCreateDto {
-    String email;
-    String name;
-    Organization organization;
+    @NotNull
+    @NotBlank
+    @Email
+    private String email;
+
+    @NotNull
+    @NotBlank
+    private String name;
+
+    private Long organizationId;
 }

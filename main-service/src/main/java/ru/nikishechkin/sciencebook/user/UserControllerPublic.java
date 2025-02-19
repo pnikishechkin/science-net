@@ -1,4 +1,4 @@
-package ru.nikishechkin.sciencebook.article;
+package ru.nikishechkin.sciencebook.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/messages")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 @Slf4j
 @Validated
-public class ArticleController {
-    private final ArticleService articleService;
+public class UserControllerPublic {
+    private final UserServiceImpl userService;
 }
