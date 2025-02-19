@@ -7,6 +7,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.nikishechkin.sciencebook.user.dto.UserCreateDto;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/admin/users")
 @RequiredArgsConstructor
@@ -19,7 +21,19 @@ public class UserControllerAdmin {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public User create(@RequestBody @Validated UserCreateDto userDto) {
+        // TODO validation exception
         return userService.create(userDto);
     }
 
+    @GetMapping
+    public List<User> getUsers(@RequestParam(required = false) List<Long> ids,
+                             @RequestParam(defaultValue = "0") Integer pageNumber,
+                             @RequestParam(defaultValue = "10") Integer pageSize) {
+        return userService.getAll(ids, pageNumber, pageSize);
+    }
+
+    @GetMapping("/{userId}")
+    public User getUser(@PathVariable Long userId) {
+        return userService.getById(userId);
+    }
 }
