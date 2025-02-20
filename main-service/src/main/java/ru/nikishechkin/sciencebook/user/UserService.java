@@ -3,7 +3,6 @@ package ru.nikishechkin.sciencebook.user;
 import ru.nikishechkin.sciencebook.user.dto.UserCreateDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
 
@@ -13,5 +12,5 @@ public interface UserService {
 
     User getById(Long userId);
 
-    List<User> getAll(List<Long> ids, Integer from, Integer size);
+    List<User> getUsers(List<Long> ids, Integer from, Integer size);
 }

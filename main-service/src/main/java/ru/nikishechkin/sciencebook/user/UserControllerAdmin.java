@@ -29,7 +29,7 @@ public class UserControllerAdmin {
     public List<User> getUsers(@RequestParam(required = false) List<Long> ids,
                              @RequestParam(defaultValue = "0") Integer pageNumber,
                              @RequestParam(defaultValue = "10") Integer pageSize) {
-        return userService.getAll(ids, pageNumber, pageSize);
+        return userService.getUsers(ids, pageNumber, pageSize);
     }
 
     @GetMapping("/{userId}")

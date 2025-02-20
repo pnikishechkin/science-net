@@ -47,11 +47,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAll(List<Long> ids, Integer pageNumber, Integer pageSize) {
+    public List<User> getUsers(List<Long> ids, Integer pageNumber, Integer pageSize) {
         if (ids == null) {
             return userRepository.findAll(PageRequest.of(pageNumber, pageSize)).toList();
         } else {
-            return userRepository.findAllByIdIn(ids, PageRequest.of(pageNumber, pageSize)).stream().toList();
+            return userRepository.findAllByIdIn(ids, PageRequest.of(pageNumber, pageSize));
         }
     }
 
