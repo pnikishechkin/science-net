@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import ru.nikishechkin.sciencebook.config.SecurityConfig;
 import ru.nikishechkin.sciencebook.exception.NotFoundException;
 import ru.nikishechkin.sciencebook.organization.Organization;
 import ru.nikishechkin.sciencebook.organization.OrganizationRepository;
@@ -19,6 +20,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final OrganizationRepository organizationRepository;
+    private final SecurityConfig securityConfig;
 
     @Override
     public User create(UserCreateDto userCreateDto) {
@@ -28,6 +30,7 @@ public class UserServiceImpl implements UserService {
                     .orElseThrow(() -> new NotFoundException("Указана несуществующая организация"));
             user.setOrganization(organization);
         }
+        user.setPassword(securityConfig.passwordEncoder().encode(userCreateDto.getPassword()));
         userRepository.save(user);
         return user;
     }
