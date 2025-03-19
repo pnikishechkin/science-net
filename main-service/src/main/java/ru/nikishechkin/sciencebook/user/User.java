@@ -23,7 +23,6 @@ public class User {
 
     @NotNull
     @NotBlank
-    @Length(min = 5, max = 20, message = "Пароль должен быть длиной от 5 до 20 символов")
     private String password;
 
     @Column(name = "name", nullable = false)
