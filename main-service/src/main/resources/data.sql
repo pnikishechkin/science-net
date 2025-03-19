@@ -8,11 +8,11 @@ INSERT INTO "organizations" ("name")
 VALUES ('Научная контора');
 
 
-INSERT INTO "users" ("email", "name", "organization_id")
-VALUES ('ivanov@yandex.ru', 'Ivan Ivanov', 1);
+INSERT INTO "users" ("email", "password", "name", "organization_id")
+VALUES ('ivanov@yandex.ru', '$2a$10$dbgbu3GVTfcMpriZl7l9.OGrTPspkBPgGhnOKIW68BBVTfNC24MBy', 'Ivan Ivanov', 1);
 
-INSERT INTO "users" ("email", "name", "organization_id")
-VALUES ('petrov@yandex.ru', 'Petr Petrov', 2);
+INSERT INTO "users" ("email", "password", "name", "organization_id")
+VALUES ('petrov@yandex.ru', 'test', 'Petr Petrov', 2);
 
-INSERT INTO "users" ("email", "name")
-VALUES ('sidorov@yandex.ru', 'Sidor Sidorov');
+INSERT INTO "users" ("email", "password", "name")
+VALUES ('sidorov@yandex.ru', 'test', 'Sidor Sidorov');

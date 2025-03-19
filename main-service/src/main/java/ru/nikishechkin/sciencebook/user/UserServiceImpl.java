@@ -4,10 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import ru.nikishechkin.sciencebook.config.SecurityConfig;
+import ru.nikishechkin.sciencebook.exception.AuthorizeException;
 import ru.nikishechkin.sciencebook.exception.NotFoundException;
 import ru.nikishechkin.sciencebook.organization.Organization;
 import ru.nikishechkin.sciencebook.organization.OrganizationRepository;
+import ru.nikishechkin.sciencebook.user.dto.UserAuthorizeDto;
 import ru.nikishechkin.sciencebook.user.dto.UserCreateDto;
+import ru.nikishechkin.sciencebook.user.dto.UserDataAdminDto;
 
 import java.util.List;
 
@@ -19,6 +23,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final OrganizationRepository organizationRepository;
+    private final SecurityConfig securityConfig;
 
     @Override
     public User create(UserCreateDto userCreateDto) {
@@ -28,31 +33,46 @@ public class UserServiceImpl implements UserService {
                     .orElseThrow(() -> new NotFoundException("Указана несуществующая организация"));
             user.setOrganization(organization);
         }
+        user.setPassword(securityConfig.passwordEncoder().encode(userCreateDto.getPassword()));
         userRepository.save(user);
         return user;
     }
 
     @Override
     public void delete(Long userId) {
-        getById(userId);
+        getUserByIdAdmin(userId);
         userRepository.deleteById(userId);
     }
 
     @Override
-    public User getById(Long userId) {
+    public UserDataAdminDto getUserByIdAdmin(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() ->
                 new NotFoundException("Пользователя с заданным идентификатором не существует!"));
-        // TODO Объекты dto
-        return user;
+
+        return userMapper.userToUserAdminDto(user);
     }
 
     @Override
-    public List<User> getAll(List<Long> ids, Integer pageNumber, Integer pageSize) {
+    public List<User> getUsersAdmin(List<Long> ids, Integer pageNumber, Integer pageSize) {
         if (ids == null) {
             return userRepository.findAll(PageRequest.of(pageNumber, pageSize)).toList();
         } else {
-            return userRepository.findAllByIdIn(ids, PageRequest.of(pageNumber, pageSize)).stream().toList();
+            return userRepository.findAllByIdIn(ids, PageRequest.of(pageNumber, pageSize));
         }
+    }
+
+    @Override
+    public User authorize(UserAuthorizeDto userAuthorizeDto) {
+        // Результаты: успех / е-меил не найден / пароль неверный
+        User user = userRepository.findByEmail(userAuthorizeDto.getEmail()).orElseThrow(() -> new NotFoundException(
+                "Пользователя с указанным e-mail не существует!"));
+
+        if (!securityConfig.passwordEncoder().matches(userAuthorizeDto.getPassword(),
+                user.getPassword())) {
+            throw new AuthorizeException("Указан неверный пароль!");
+        }
+
+        return user; // TODO возвращать токен JWT
     }
 
     // Другой вариант маппинга, используя ModelMapper

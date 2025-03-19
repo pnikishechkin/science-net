@@ -1,9 +1,10 @@
 package ru.nikishechkin.sciencebook.user;
 
+import ru.nikishechkin.sciencebook.user.dto.UserAuthorizeDto;
 import ru.nikishechkin.sciencebook.user.dto.UserCreateDto;
+import ru.nikishechkin.sciencebook.user.dto.UserDataAdminDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
 
@@ -11,7 +12,9 @@ public interface UserService {
 
     void delete(Long userId);
 
-    User getById(Long userId);
+    UserDataAdminDto getUserByIdAdmin(Long userId);
 
-    List<User> getAll(List<Long> ids, Integer from, Integer size);
+    List<User> getUsersAdmin(List<Long> ids, Integer from, Integer size);
+
+    User authorize(UserAuthorizeDto userAuthorizeDto);
 }

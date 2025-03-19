@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -57,6 +58,34 @@ public class ErrorHandler {
         e.printStackTrace(pw);
         return new ApiError(HttpStatus.BAD_REQUEST,
                 "Parameter not valid",
+                e.getMessage(),
+                LocalDateTime.now(),
+                Arrays.stream(e.getStackTrace()).toList());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiError handleMethodArgumentValidationException(final MethodArgumentNotValidException e) {
+        log.warn("400 {}", e.getMessage());
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        e.printStackTrace(pw);
+        return new ApiError(HttpStatus.BAD_REQUEST,
+                "Parameter not valid",
+                e.getMessage(),
+                LocalDateTime.now(),
+                Arrays.stream(e.getStackTrace()).toList());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ApiError handleAuthorizeException(final AuthorizeException e) {
+        log.warn("401 {}", e.getMessage());
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        e.printStackTrace(pw);
+        return new ApiError(HttpStatus.BAD_REQUEST,
+                "Incorrect password",
                 e.getMessage(),
                 LocalDateTime.now(),
                 Arrays.stream(e.getStackTrace()).toList());
