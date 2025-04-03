@@ -1,10 +1,9 @@
 package ru.nikishechkin.sciencebook.user;
 
-import lombok.RequiredArgsConstructor;
-import org.aspectj.lang.annotation.After;
-import org.mapstruct.*;
-import org.mapstruct.factory.Mappers;
-import ru.nikishechkin.sciencebook.config.SecurityConfig;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.InjectionStrategy;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 import ru.nikishechkin.sciencebook.user.dto.UserCreateDto;
 import ru.nikishechkin.sciencebook.user.dto.UserDataAdminDto;
 
